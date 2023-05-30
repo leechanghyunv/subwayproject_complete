@@ -17,7 +17,7 @@ class IntroPage extends StatefulWidget {
 class _IntroPageState extends State<IntroPage> {
   TutorialCoachMark? tutorialCoachMark;
   List<TargetFocus> targets = [];
-  bool ConvertDirection = false;
+  bool convertDirection = false;
 
   GlobalKey colorbarkey = GlobalKey();
   GlobalKey iconkey = GlobalKey();
@@ -327,7 +327,7 @@ class _IntroPageState extends State<IntroPage> {
                               key: colorbarkey,
                               height: appHeight * 0.58 * 0.90,
                               width: appWidth * 0.08,
-                              child: ColorContainer(StringNumber: 'Line2'),
+                              child: ColorContainer(stringNumber: 'Line2'),
                             ),
                           ],
                         ),
@@ -359,13 +359,13 @@ class _IntroPageState extends State<IntroPage> {
                             SizedBox(
                               height: mainBoxHeight / 20,
                             ),
-                            TextContainerA(StringNumber: 'Line2'),
+                            TextContainerA(stringNumber: 'Line2'),
                             UpandDown(
-                              color1: ConvertDirection == true
+                              color1: convertDirection == true
                                   ? Colors.grey[100]
                                   : Colors.grey[300],
                               onTap1: () {},
-                              color2: ConvertDirection == true
+                              color2: convertDirection == true
                                   ? Colors.grey[100]
                                   : Colors.grey[300],
                               onTap2: () {},

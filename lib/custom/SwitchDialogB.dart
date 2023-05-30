@@ -5,10 +5,10 @@ import 'TextFrame.dart';
 
 class SwitchDialogB extends StatefulWidget {
 
-  final String Line;
+  final String line;
   final Widget? child;
 
-  SwitchDialogB({Key? key, required this.Line, this.child}) : super(key: key);
+  SwitchDialogB({Key? key, required this.line, this.child}) : super(key: key);
 
   @override
   State<SwitchDialogB> createState() => _SwitchDialogBState();
@@ -20,17 +20,17 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
     'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Line6', 'Line7', 'Line8', 'Line9', '신분당', '수인분당', '경의중앙', '우이신설', '신림', '공항',
   ];
 
-  String Linex = '';
+  String linex = '';
 
   @override
   void initState() {
     super.initState();
-    changeline(widget.Line);
+    changeline(widget.line);
   }
 
   void changeline(String value) {
     setState(() {
-      Linex = value;
+      linex = value;
     });
   }
 
@@ -46,7 +46,7 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              DialogDesign(DesignText: 'Location Tracking'),
+              DialogDesign(designText: 'Location Tracking'),
               Expanded(child: Text('')),
               Column(
                 children: [
@@ -80,7 +80,7 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
             color: Colors.grey,
             height: appHeight * 0.2907,
             child: DialogPage(
-              GetLine: Linex,
+              getLine: linex,
             ),
           ),
           ///

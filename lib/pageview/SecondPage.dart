@@ -24,7 +24,7 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPageState extends State<SecondPage> {
 
-  String Time =  DateFormat('HH:mm').format(DateTime.now());
+  String time =  DateFormat('HH:mm').format(DateTime.now());
 
   TimeOfDay startTime = TimeOfDay(hour: 1, minute: 0);
   TimeOfDay endTime = TimeOfDay(hour: 5, minute: 0);
@@ -33,8 +33,8 @@ class _SecondPageState extends State<SecondPage> {
   ScrollController _scrollControllerA = ScrollController();
   ScrollController _scrollControllerB = ScrollController();
 
-  final Seoul = Get.put(Controller());
-  final TableData = Get.put(TableController());
+  final seoul = Get.put(Controller());
+  final tableData = Get.put(TableController());
   bool status = false;
 
 
@@ -48,7 +48,7 @@ class _SecondPageState extends State<SecondPage> {
   @override
   void initState() {
     super.initState();
-    CallTableB();
+    callTableB();
     subwayList = box.read('List') ?? [];
   }
 
@@ -57,38 +57,38 @@ class _SecondPageState extends State<SecondPage> {
     return 'SEOUL';
   }
 
-  Future<void> CallTableA() async {
-    await Seoul.CallArrival(box.read('subwayA'));
-    await TableData.CallData1(box.read('codeA'));
-    await TableData.CallData2(box.read('codeA'));
+  Future<void> callTableA() async {
+    await seoul.callArrival(box.read('subwayA'));
+    await tableData.callData1(box.read('codeA'));
+    await tableData.callData2(box.read('codeA'));
     Fluttertoast.showToast(
         msg:'${box.read('subwayA')}역 열차일정',
         gravity: ToastGravity.CENTER);
     setState(() {
-      textA = Seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumA')).
+      textA = seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumA')).
       where((element) => element.updnLine == '상행' || element.updnLine == '내선').
       first.trainLineNm.toString();
 
-      textB = Seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumA')).
+      textB = seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumA')).
       where((element) => element.updnLine == '하행' || element.updnLine == '외선').
       first.trainLineNm.toString();
     });
   }
 
-  Future<void> CallTableB() async {
-    await Seoul.CallArrival(box.read('subwayB'));
-    await TableData.CallData1(box.read('codeB'));
-    await TableData.CallData2(box.read('codeB'));
+  Future<void> callTableB() async {
+    await seoul.callArrival(box.read('subwayB'));
+    await tableData.callData1(box.read('codeB'));
+    await tableData.callData2(box.read('codeB'));
 
     Fluttertoast.showToast(
         msg:'${box.read('subwayB')}역 열차일정',
         gravity: ToastGravity.CENTER);
     setState(() {
-      textA = Seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumB')).
+      textA = seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumB')).
       where((element) => element.updnLine == '상행' || element.updnLine == '내선').
       first.trainLineNm.toString();
 
-      textB = Seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumB')).
+      textB = seoul.arrival.where((p0) => p0.subwayId == box.read('line_to_NumB')).
       where((element) => element.updnLine == '하행' || element.updnLine == '외선').
       first.trainLineNm.toString();
     });
@@ -186,9 +186,9 @@ class _SecondPageState extends State<SecondPage> {
                                   height: appHeight * 0.44,
                                   child: ListView.builder(
                                       controller: _scrollControllerA,
-                                      itemCount: TableData.tableA.length,
+                                      itemCount: tableData.tableA.length,
                                       itemBuilder: (context, index){
-                                        var row = TableData.tableA[index];
+                                        var row = tableData.tableA[index];
                                         return ListTile(
                                           title: Row(
                                             children: [
@@ -260,9 +260,9 @@ class _SecondPageState extends State<SecondPage> {
                                   height: appHeight * 0.44,
                                   child: ListView.builder(
                                       controller: _scrollControllerB,
-                                      itemCount: TableData.tableB.length,
+                                      itemCount: tableData.tableB.length,
                                       itemBuilder: (context, index){
-                                        var row = TableData.tableB[index];
+                                        var row = tableData.tableB[index];
                                         return ListTile(
                                           title: Row(
                                             children: [
@@ -324,10 +324,10 @@ class _SecondPageState extends State<SecondPage> {
 
                                         setState(() {
                                           if(val == false){
-                                            CallTableB();
+                                            callTableB();
                                             status = val;
                                           } else if(val == true){
-                                            CallTableA();
+                                            callTableA();
                                             status = val;
                                           }
                                         });

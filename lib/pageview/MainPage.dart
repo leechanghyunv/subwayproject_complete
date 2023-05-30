@@ -17,29 +17,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController controllerName = TextEditingController();
   late List<dynamic> subwayList = [];
-  late bool ConvertDirection = false;
+  late bool convertDirection = false;
   late Future<String> _futureData;
   late String stringNumber = 'Line2';
   late String stringNumberT = 'Line2';
   late String subwayname = 'SEOUL';
   late String subwaynameT = '서울';
   late String rowname = '';
-  late String LineToId = '';
-  late String LineToIdT = '';
+  late String lineToId = '';
+  late String lineToIdT = '';
 
   @override
   void initState() {
     super.initState();
     _futureData = _fetchData();
-    DustData.CallDust().then((value) => stringNumber = DustData.BarLevel.value);
-    WeatherC.CallWeather();
+    dustData.callDust().then((value) => stringNumber = dustData.barLevel.value);
+    weatherC.callWeather();
   }
 
-  final Seoul = Get.put(Controller());
-  final Datas = Get.put(Retrieve());
-  final DustData = Get.put(InitialController());
-  final WeatherC = Get.put(WeatherController());
-  final Calc = Get.put(CalculateTime());
+  final seoul = Get.put(Controller());
+  final datas = Get.put(Retrieve());
+  final dustData = Get.put(InitialController());
+  final weatherC = Get.put(WeatherController());
+  final calc = Get.put(CalculateTime());
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                                                     itemSubmitted: (value1){
                                                       setState(() {
                                                         subwayname = value1;
-                                                        Datas.SavePosition(SubwayInfos, subwayname);
+                                                        datas.SavePosition(SubwayInfos, subwayname);
                                                       });
                                                       OpenDialog(subwayname);
                                                     },
@@ -125,34 +125,34 @@ class _HomePageState extends State<HomePage> {
                                                       if(subwayname != 'SEOUL'){
                                                         addlist(subwayList,subwayname);
                                                         box.write('subwayA',subwayname);
-                                                        box.write('latA',Datas.lat1);
-                                                        box.write('lngA',Datas.lng1);
-                                                        box.write('engA',Datas.engName);
+                                                        box.write('latA',datas.lat1);
+                                                        box.write('lngA',datas.lng1);
+                                                        box.write('engA',datas.engName);
                                                         box.write('lineA',stringNumber);
-                                                        box.write('line_to_NumA',LineToId);
-                                                        box.write('codeA',Seoul.CodeResult);
-                                                        box.write('convertA',Datas.LineStringB);
+                                                        box.write('line_to_NumA',lineToId);
+                                                        box.write('codeA',seoul.codeResult);
+                                                        box.write('convertA',datas.lineStringB);
                                                         box.write(subwayname,stringNumber);
-                                                        Savemsg('목적지 A',subwayname,Datas.engName);
+                                                        savemsg('목적지 A',subwayname,datas.engName);
                                                       }else if(subwayname == 'SEOUL'){
-                                                        Showmsg();
+                                                        showmsg();
                                                       }
                                                     },
                                                     onLongPress: (){
                                                       if(subwayname != 'SEOUL'){
                                                         addlist(subwayList,subwayname);
                                                         box.write('subwayB',subwayname);
-                                                        box.write('latB',Datas.lat1);
-                                                        box.write('lngB',Datas.lng1);
-                                                        box.write('engB',Datas.engName);
+                                                        box.write('latB',datas.lat1);
+                                                        box.write('lngB',datas.lng1);
+                                                        box.write('engB',datas.engName);
                                                         box.write('lineB',stringNumber);
-                                                        box.write('line_to_NumB',LineToId);
-                                                        box.write('codeB',Seoul.CodeResult);
-                                                        box.write('convertB',Datas.LineStringB);
+                                                        box.write('line_to_NumB',lineToId);
+                                                        box.write('codeB',seoul.codeResult);
+                                                        box.write('convertB',datas.lineStringB);
                                                         box.write(subwayname,stringNumber);
-                                                        Savemsg('목적지 B',subwayname,Datas.engName);
+                                                        savemsg('목적지 B',subwayname,datas.engName);
                                                       }else if(subwayname == 'SEOUL'){
-                                                        Showmsg();
+                                                        showmsg();
                                                       }
                                                     },
                                                     comment: 'Save',),
@@ -175,14 +175,14 @@ class _HomePageState extends State<HomePage> {
                                                     itemSubmittedA: (value1) {
                                                       setState(() {
                                                         subwayname = value1;
-                                                        Datas.SavePosition(SubwayInfos, subwayname);
+                                                        datas.SavePosition(SubwayInfos, subwayname);
                                                       });
                                                       OpenDialog(subwayname);
                                                     },
                                                     itemSubmittedB: (value11) {
                                                       setState(() {
                                                         subwaynameT = value11;
-                                                        Datas.SavePositionT(SubwayInfos, subwaynameT);
+                                                        datas.savePositionT(SubwayInfos, subwaynameT);
                                                         box.write('subwayT', subwaynameT);
                                                         box.write('lineT', stringNumberT);
                                                       });
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
                                                         box.write('Name', controllerName.text);
                                                       });
                                                     },
-                                                    LineNumT: stringNumberT,
+                                                    lineNumT: stringNumberT,
                                                   ),
                                                 ),
                                                 actions: [
@@ -203,34 +203,34 @@ class _HomePageState extends State<HomePage> {
                                                       if(subwayname != 'SEOUL'){
                                                         addlist(subwayList,subwayname);
                                                         box.write('subwayA',subwayname);
-                                                        box.write('latA',Datas.lat1);
-                                                        box.write('lngA',Datas.lng1);
-                                                        box.write('engA',Datas.engName);
+                                                        box.write('latA',datas.lat1);
+                                                        box.write('lngA',datas.lng1);
+                                                        box.write('engA',datas.engName);
                                                         box.write('lineA',stringNumber);
-                                                        box.write('line_to_NumA',LineToId);
-                                                        box.write('codeA',Seoul.CodeResult);
-                                                        box.write('convertA',Datas.LineStringB);
+                                                        box.write('line_to_NumA',lineToId);
+                                                        box.write('codeA',seoul.codeResult);
+                                                        box.write('convertA',datas.lineStringB);
                                                         box.write(subwayname,stringNumber);
-                                                        Savemsg('목적지 A',subwayname,Datas.engName);
+                                                        savemsg('목적지 A',subwayname,datas.engName);
                                                       }else if(subwayname == 'SEOUL'){
-                                                        Showmsg();
+                                                        showmsg();
                                                       }
                                                     },
                                                     onLongPress: (){
                                                       if(subwayname != 'SEOUL'){
                                                         addlist(subwayList,subwayname);
                                                         box.write('subwayB',subwayname);
-                                                        box.write('latB',Datas.lat1);
-                                                        box.write('lngB',Datas.lng1);
-                                                        box.write('engB',Datas.engName);
+                                                        box.write('latB',datas.lat1);
+                                                        box.write('lngB',datas.lng1);
+                                                        box.write('engB',datas.engName);
                                                         box.write('lineB',stringNumber);
-                                                        box.write('line_to_NumB',LineToId);
-                                                        box.write('codeB',Seoul.CodeResult);
-                                                        box.write('convertB',Datas.LineStringB);
+                                                        box.write('line_to_NumB',lineToId);
+                                                        box.write('codeB',seoul.codeResult);
+                                                        box.write('convertB',datas.lineStringB);
                                                         box.write(subwayname,stringNumber);
-                                                        Savemsg('목적지 B',subwayname,Datas.engName);
+                                                        savemsg('목적지 B',subwayname,datas.engName);
                                                       }else if(subwayname == 'SEOUL'){
-                                                        Showmsg();
+                                                        showmsg();
                                                       }
                                                     },
                                                     comment: 'Save',),
@@ -245,18 +245,18 @@ class _HomePageState extends State<HomePage> {
                                       ),
 
                                       SizedBox(height: mainBoxHeight / 20,),
-                                      TextContainerA(StringNumber: stringNumber),
+                                      TextContainerA(stringNumber: stringNumber),
                                       UpandDown(
-                                        color1: ConvertDirection == true ? Colors.grey[100] : Colors.grey[300],
+                                        color1: convertDirection == true ? Colors.grey[100] : Colors.grey[300],
                                         onTap1: () async {
                                           setState(() {
-                                            ConvertDirection = false;
+                                            convertDirection = false;
                                           });
                                         },
-                                        color2: ConvertDirection == true ?  Colors.grey[100] : Colors.grey[300],
+                                        color2: convertDirection == true ?  Colors.grey[100] : Colors.grey[300],
                                         onTap2: () async {
                                           setState(() {
-                                            ConvertDirection = true;
+                                            convertDirection = true;
                                           });
                                         },
                                       ),
@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                                     if(index == 0){
                                       if(box.read('subwayA') != null)
                                       {
-                                        await Seoul.CallArrival(box.read('subwayB'));
+                                        await seoul.callArrival(box.read('subwayB'));
                                         showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
@@ -311,9 +311,9 @@ class _HomePageState extends State<HomePage> {
                                                     }
                                                 ),
                                                 children: [
-                                                  WeatherC.weathericon,
+                                                  weatherC.weathericon,
                                                   SizedBox(width: 5,),
-                                                  TextFrame(comment: '${WeatherC.des.value} ${WeatherC.temperature.value.
+                                                  TextFrame(comment: '${weatherC.des.value} ${weatherC.temperature.value.
                                                   toStringAsFixed(1)}\u2103',),
                                                   Expanded(child: Text('')),
                                                   TransferIcon(),
@@ -332,9 +332,9 @@ class _HomePageState extends State<HomePage> {
                                                     var b = box.read('latA').toString();
                                                     var c = box.read('lngB').toString();
                                                     var d = box.read('latB').toString();
-                                                    Calc.CallTimeA(a, b, c, d,
+                                                    calc.callTimeA(a, b, c, d,
                                                         box.read('subwayB'), box.read('subwayA')).
-                                                    then((value) => Calc.CallTimeB(a,b, c, b,
+                                                    then((value) => calc.callTimeB(a,b, c, b,
                                                         box.read('subwayB'), box.read('subwayA')));
                                                     print('출발지 : ${box.read('subwayA')} ${b}  |  ${a}');
                                                     print('종착지 : ${box.read('subwayB')} ${d}  |  ${c}');
@@ -342,11 +342,11 @@ class _HomePageState extends State<HomePage> {
                                                       Fluttertoast.showToast(
                                                           msg:'목적지 ${box.read('subwayA') ?? 'SEOUL'}로 출발합니다.',
                                                           gravity: ToastGravity.CENTER)
-                                                          .then((value) => Datas.subwayName = box.read('subwayA'))
-                                                          .then((value) => Datas.engName = box.read('engA'))
+                                                          .then((value) => datas.subwayName = box.read('subwayA'))
+                                                          .then((value) => datas.engName = box.read('engA'))
                                                           .then((value) => stringNumber = box.read('lineA'))
-                                                          .then((value) =>Datas.lat1 = box.read('latA'))
-                                                          .then((value) =>Datas.lng1 = box.read('lngA'));
+                                                          .then((value) =>datas.lat1 = box.read('latA'))
+                                                          .then((value) =>datas.lng1 = box.read('lngA'));
                                                     });
                                                     Navigator.pop(context);
                                                   },
@@ -355,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                                               ],
                                             ));
                                       }else{
-                                        Showmsg();
+                                        showmsg();
                                       }
                                     }
                                     else if(index == 1){
@@ -366,7 +366,7 @@ class _HomePageState extends State<HomePage> {
                                           context: context,
                                           builder: (context)=> AlertDialog(
                                             content: SwitchDialogB(
-                                              Line: stringNumber,
+                                              line: stringNumber,
                                               child: ListView.builder(
                                                   shrinkWrap: true,
                                                   scrollDirection: Axis.horizontal,
@@ -383,13 +383,13 @@ class _HomePageState extends State<HomePage> {
                                                             fontWeight: FontWeight.bold,color: Colors.black),
                                                         selected: true,
                                                         onSelected: (isSelected) async {
-                                                          await Seoul.CallArrival(row);
+                                                          await seoul.callArrival(row);
                                                           rowname = row;
-                                                          Datas.SavePosition(SubwayInfos, row);
-                                                          Datas.RetriveLine(LineList,box.read(row)); /// row1// Line1.Line2
-                                                          LineToId = Datas.number; /// 1001, 1002
+                                                          datas.SavePosition(SubwayInfos, row);
+                                                          datas.retriveLine(LineList,box.read(row)); /// row1// Line1.Line2
+                                                          lineToId = datas.number; /// 1001, 1002
                                                           stringNumber = box.read(row);
-                                                          Seoul.CallCode(row,box.read(row));
+                                                          seoul.callCode(row,box.read(row));
                                                           OpenDialog(rowname);
                                                           setState(() => _isSelected = isSelected);
                                                         },
@@ -402,25 +402,25 @@ class _HomePageState extends State<HomePage> {
                                               DialogButton(
                                                 onPressed: (){
                                                   box.write('subwayA',rowname);
-                                                  box.write('latA',Datas.lat1);
-                                                  box.write('lngA',Datas.lng1);
-                                                  box.write('engA',Datas.engName);
+                                                  box.write('latA',datas.lat1);
+                                                  box.write('lngA',datas.lng1);
+                                                  box.write('engA',datas.engName);
                                                   box.write('lineA',box.read(rowname));
-                                                  box.write('line_to_NumA',LineToId);
-                                                  box.write('codeA',Seoul.CodeResult);
-                                                  box.write('convertA',Datas.LineStringB);
-                                                  Savemsg('목적지 A',rowname,Datas.engName);
+                                                  box.write('line_to_NumA',lineToId);
+                                                  box.write('codeA',seoul.codeResult);
+                                                  box.write('convertA',datas.lineStringB);
+                                                  savemsg('목적지 A',rowname,datas.engName);
                                                 },
                                                 onLongPress: (){
                                                   box.write('subwayB',rowname);
-                                                  box.write('latB',Datas.lat1);
-                                                  box.write('lngB',Datas.lng1);
-                                                  box.write('engB',Datas.engName);
+                                                  box.write('latB',datas.lat1);
+                                                  box.write('lngB',datas.lng1);
+                                                  box.write('engB',datas.engName);
                                                   box.write('lineB',box.read(rowname));
-                                                  box.write('line_to_NumB',LineToId);
-                                                  box.write('codeB',Seoul.CodeResult);
-                                                  box.write('convertB',Datas.LineStringB);
-                                                  Savemsg('목적지 B',rowname,Datas.engName);
+                                                  box.write('line_to_NumB',lineToId);
+                                                  box.write('codeB',seoul.codeResult);
+                                                  box.write('convertB',datas.lineStringB);
+                                                  savemsg('목적지 B',rowname,datas.engName);
                                                 },
                                                 comment: 'Save',
                                               ),
@@ -436,7 +436,7 @@ class _HomePageState extends State<HomePage> {
 
                                     else if(index == 2){
                                       if(box.read('subwayB') != null){
-                                        await Seoul.CallArrival(box.read('subwayA'));
+                                        await seoul.callArrival(box.read('subwayA'));
                                         showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
@@ -472,9 +472,9 @@ class _HomePageState extends State<HomePage> {
                                                     }
                                                 ),
                                                 children: [
-                                                  WeatherC.weathericon,
+                                                  weatherC.weathericon,
                                                   SizedBox(width: 5,),
-                                                  TextFrame(comment: '${WeatherC.des.value} ${WeatherC.temperature.value.
+                                                  TextFrame(comment: '${weatherC.des.value} ${weatherC.temperature.value.
                                                   toStringAsFixed(1)}\u2103',),
                                                   Expanded(child: Text('')),
                                                   TransferIcon(),
@@ -493,9 +493,9 @@ class _HomePageState extends State<HomePage> {
                                                     var b = box.read('latA').toString();
                                                     var c = box.read('lngB').toString();
                                                     var d = box.read('latB').toString();
-                                                    Calc.CallTimeA(a, b, c, d,
+                                                    calc.callTimeA(a, b, c, d,
                                                         box.read('subwayB'), box.read('subwayA')).
-                                                    then((value) => Calc.CallTimeB(a,b, c, b,
+                                                    then((value) => calc.callTimeB(a,b, c, b,
                                                         box.read('subwayB'), box.read('subwayA')));
                                                     print('출발지 : ${box.read('subwayA')} ${b}  |  ${a}');
                                                     print('종착지 : ${box.read('subwayB')} ${d}  |  ${c}');
@@ -503,11 +503,11 @@ class _HomePageState extends State<HomePage> {
                                                       Fluttertoast.showToast(
                                                           msg:'목적지 ${box.read('subwayB') ?? 'SEOUL'}로 출발합니다.',
                                                           gravity: ToastGravity.CENTER)
-                                                          .then((value) => Datas.subwayName = box.read('subwayB'))
-                                                          .then((value) => Datas.engName = box.read('engB'))
+                                                          .then((value) => datas.subwayName = box.read('subwayB'))
+                                                          .then((value) => datas.engName = box.read('engB'))
                                                           .then((value) => stringNumber = box.read('lineB'))
-                                                          .then((value) =>Datas.lat1 = box.read('latB'))
-                                                          .then((value) =>Datas.lng1 = box.read('lngB'));
+                                                          .then((value) =>datas.lat1 = box.read('latB'))
+                                                          .then((value) =>datas.lng1 = box.read('lngB'));
                                                     });
                                                     Navigator.pop(context);
                                                   },
@@ -516,7 +516,7 @@ class _HomePageState extends State<HomePage> {
                                               ],
                                             ));
                                       }else{
-                                        Showmsg();
+                                        showmsg();
                                       }
                                     }
                                   },
@@ -574,11 +574,11 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black)),
                           onPressed: () {
                             setState(() {
-                              Datas.RetriveLine(LineList,box.read('row1')); /// row1// Line1.Line2
-                              LineToId = Datas.number; /// 1001, 1002
+                              datas.retriveLine(LineList,box.read('row1')); /// row1// Line1.Line2
+                              lineToId = datas.number; /// 1001, 1002
                               stringNumber = box.read('row1');
                             });
-                            Seoul.CallCode(subwayname,box.read('row1')); // + box.read('row1')
+                            seoul.callCode(subwayname,box.read('row1')); // + box.read('row1')
                             Navigator.of(context).pop();
                           }
                       ),
@@ -613,13 +613,13 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black)),
                           onPressed: () {
                             setState(() {
-                              Datas.RetriveLineT(LineList,box.read('row2'));
-                              LineToIdT = Datas.numberT; /// 1001, 1002
+                              datas.retriveLineT(LineList,box.read('row2'));
+                              lineToIdT = datas.numberT; /// 1001, 1002
                               stringNumberT = box.read('row2');
-                              box.write('line_to_NumT',LineToIdT);
-                              box.write('convertT',Datas.LineStringBT);
+                              box.write('line_to_NumT',lineToIdT);
+                              box.write('convertT',datas.lineStringBT);
                             });
-                            Seoul.CallCode(subwaynameT,box.read('row2')); // + box.read('row2')
+                            seoul.callCode(subwaynameT,box.read('row2')); // + box.read('row2')
                             Navigator.of(context).pop();
                           }
                       ),
@@ -638,10 +638,11 @@ class _HomePageState extends State<HomePage> {
     return "Data loaded successfully";
   }
 
-  Future<bool?> Showmsg() => Fluttertoast.showToast(
+  Future<bool?> showmsg() => Fluttertoast.showToast(
       msg:'목적지를 입력해주세요',
       gravity: ToastGravity.CENTER);
-  Future<bool?> Savemsg(String position, String name, String ename)
+
+  Future<bool?> savemsg(String position, String name, String ename)
   => Fluttertoast.showToast(
       msg:'${position} ${name}가 저장되었습니다.\n${ename}',
       gravity: ToastGravity.CENTER);

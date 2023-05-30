@@ -6,7 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class TopDesign extends StatelessWidget {
 
-  String QRdata = '1234ffov3pp5oq23lk';
+  String qrdata = '1234ffov3pp5oq23lk';
   Color text_color = Colors.black;
 
   @override
@@ -31,7 +31,7 @@ class TopDesign extends StatelessWidget {
                 onTap: () {
                   print('QRCODE');
                 },
-                child: QrImageView(data: QRdata)),
+                child: QrImageView(data: qrdata)),
           ),
           SizedBox(
             width: appRatio >= 0.5 ? mainBoxHeight / 6 : mainBoxHeight / 15,

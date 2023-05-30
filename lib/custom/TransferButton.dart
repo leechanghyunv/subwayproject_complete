@@ -18,7 +18,7 @@ class TransferIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () async {
-      await Seoul.CallArrival(box.read('subwayT'));
+      await Seoul.callArrival(box.read('subwayT'));
       showDialog(
           context: context,
           builder: (context) => AlertDialog(

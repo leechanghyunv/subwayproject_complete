@@ -47,7 +47,7 @@ class _ColorBarState extends State<ColorBar> {
         GestureDetector(
           onTap: () {
             Get.snackbar(
-              '미세먼지 농도 ${DustData.DustLevel} ${DustData.Comment}',
+              '미세먼지 농도 ${DustData.dustLevel} ${DustData.Comment}',
               '현재온도 ${WeatherData.temperature.value.toStringAsFixed(1)}\u2103',
               backgroundColor: Colors.white,
               icon: WeatherData.weathericon,
@@ -66,7 +66,7 @@ class _ColorBarState extends State<ColorBar> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       DialogDesign(
-                                        DesignText: '스크롤로 화면을 내려주세요',
+                                        designText: '스크롤로 화면을 내려주세요',
                                       ),
                                       SizedBox(
                                         height: 15,
@@ -213,7 +213,7 @@ class _ColorBarState extends State<ColorBar> {
             height: appHeight * 0.58 * 0.90,
             width: appWidth * 0.08,
             child: ColorContainer(
-                StringNumber: widget.stringNumber
+                stringNumber: widget.stringNumber
             ),
           ),
         ),

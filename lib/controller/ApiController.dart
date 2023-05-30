@@ -25,10 +25,10 @@ class Controller extends GetxController {
 
   final Datas = Get.put(Retrieve());
 
-  String CodeResult = '';
+  String codeResult = '';
 
 
-  Future<void> CallArrival(String name) async {
+  Future<void> callArrival(String name) async {
     try{
       final response = await arrivalservice.GetArrival(name);
       final Iterable SubwayData = jsonDecode(response.body)['realtimeArrivalList'];
@@ -42,17 +42,17 @@ class Controller extends GetxController {
 
 
 
-  Future<void> CallCode(String name, String line) async {
+  Future<void> callCode(String name, String line) async {
     if(name == '서울'){
       name = '서울역';
     }
     final nameWithoutParentheses = name.replaceAll(RegExp(r'\([^()]*\)'), '');
-    Datas.RetriveLine(LineList, line);
-    var lineB = Datas.LineStringB;
+    Datas.retriveLine(LineList, line);
+    var lineB = Datas.lineStringB;
     final response = await codeapiservice.GetCode(nameWithoutParentheses);
     final Iterable CodeData = jsonDecode(response.body)['SearchInfoBySubwayNameService']['row'];
     codes.assignAll(CodeData.map((e) => CodeModel.fromJson(e)).toList());
     final index = codes.indexWhere((element) => element.line == lineB);
-    CodeResult = codes[index].stationCd;
+    codeResult = codes[index].stationCd;
   }
 }

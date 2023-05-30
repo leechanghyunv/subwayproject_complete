@@ -6,12 +6,12 @@ import '../custom/TextFrame.dart';
 
 class DialogDesign extends StatelessWidget {
 
-  String QRdata = '1234ffov3pp5oq23lk';
+  String qrdata = '1234ffov3pp5oq23lk';
 
-  late final String DesignText;
+  late final String designText;
 
   DialogDesign({
-    required this.DesignText,
+    required this.designText,
   });
 
 
@@ -29,7 +29,7 @@ class DialogDesign extends StatelessWidget {
             width: appHeight * 0.0903,  /// 80 /// 0.893
             height: appHeight * 0.0903,
             child: QrImageView(
-              data: QRdata,
+              data: qrdata,
             ),
           ),
           SizedBox(
@@ -41,7 +41,7 @@ class DialogDesign extends StatelessWidget {
             children: [
               ///
               TextFrame(
-                comment: '${DesignText}',
+                comment: '${designText}',
                 overflow: TextOverflow.ellipsis,
               ),
               ///

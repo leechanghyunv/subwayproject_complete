@@ -27,14 +27,14 @@ class _LinePickerBState extends State<LinePickerB> {
 
   List<LineModel> selectedList = [];
 
-  final Datas = Get.put(Retrieve());
-  final Seoul = Get.put(Controller());
+  final datas = Get.put(Retrieve());
+  final seoul = Get.put(Controller());
 
   @override
   void initState() {
     super.initState();
-    selectedList = Datas.lineT.map((e) => LineModel(name: e)).toList();
-    Seoul.CallArrival(widget.subway);
+    selectedList = datas.lineT.map((e) => LineModel(name: e)).toList();
+    seoul.callArrival(widget.subway);
     print(widget.subway);
   }
 
@@ -44,11 +44,11 @@ class _LinePickerBState extends State<LinePickerB> {
     double appHeight = MediaQuery.of(context).size.height;///  896.0 IPHONE11
 
     return Container(
-      height: Datas.line.length == 1 ? 270
-          : Datas.line.length == 2 ? 320
-          : Datas.line.length == 3 ? 370
-          : Datas.line.length == 4 ? 420
-          : Datas.line.length == 5 ? 470
+      height: datas.line.length == 1 ? 270
+          : datas.line.length == 2 ? 320
+          : datas.line.length == 3 ? 370
+          : datas.line.length == 4 ? 420
+          : datas.line.length == 5 ? 470
           : 520,
       color: Colors.white,
       alignment: Alignment.center,
@@ -61,7 +61,7 @@ class _LinePickerBState extends State<LinePickerB> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DialogDesign(
-                  DesignText: '${Datas.subwayNameT}역',
+                  designText: '${datas.subwayNameT}역',
                 ),
               ),
             ],
@@ -87,8 +87,8 @@ class _LinePickerBState extends State<LinePickerB> {
                               init: Controller(),
                               builder: (Seoul){
                                 try{
-                                  Datas.RetriveLineU(LineList, selectedList[index].name);
-                                  var linelist = Datas.numberU;
+                                  datas.retriveLineU(LineList, selectedList[index].name);
+                                  var linelist = datas.numberU;
                                   print(linelist);
                                   var arrival = Seoul.arrival.where((element) => element.subwayId == linelist).toList();
                                   var updnLine1 = ['상행', '내선'], updnLine2 = ['하행', '외선'];

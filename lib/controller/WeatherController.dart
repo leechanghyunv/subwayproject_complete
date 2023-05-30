@@ -27,10 +27,10 @@ class WeatherController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await CallWeather();
+    await callWeather();
   }
 
-  Future<void> CallWeather() async {
+  Future<void> callWeather() async {
     Lat = geolocator.lat.toString();
     Lng = geolocator.lng.toString();
     final response = await weatherapiservice.GetWeather(Lat, Lng, key2);

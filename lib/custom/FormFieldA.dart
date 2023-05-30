@@ -56,7 +56,7 @@ class _TextFormAState extends State<TextFormA> {
         child: Column(
           children: [
             DialogDesign(
-              DesignText: 'Boarding Psss',
+              designText: 'Boarding Psss',
             ),
             Container(
               child: Column(

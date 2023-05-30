@@ -5,10 +5,10 @@ const Color text_color = Colors.black;
 
 class TextContainerA extends StatelessWidget {
 
-  final String StringNumber;
+  final String stringNumber;
 
   const TextContainerA({
-    required this.StringNumber,
+    required this.stringNumber,
   });
 
   @override

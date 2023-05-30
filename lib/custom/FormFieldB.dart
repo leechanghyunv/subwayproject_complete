@@ -12,14 +12,14 @@ class TextFormB extends StatefulWidget {
   final dynamic Function(String) itemSubmittedA;
   final dynamic Function(String) itemSubmittedB;
   final Function(String) onSubmitted;
-  final String LineNumT;
+  final String lineNumT;
 
   const TextFormB(
       {Key? key,
         required this.itemSubmittedA,
         required this.itemSubmittedB,
         required this.onSubmitted,
-        required this.LineNumT})
+        required this.lineNumT})
       : super(key: key);
 
   @override
@@ -55,7 +55,7 @@ class _TextFormBState extends State<TextFormB> {
         child: Column(
           children: [
             DialogDesign(
-              DesignText: 'Boarding Psss',
+              designText: 'Boarding Psss',
             ),
             Container(
               child: Column(
@@ -78,7 +78,7 @@ class _TextFormBState extends State<TextFormB> {
                     height: appHeight * 0.015,
                   ),
                   DialogDesignBoxB(
-                    LineNumT: widget.LineNumT,
+                    LineNumT: widget.lineNumT,
                   ),
                 ],
               ),

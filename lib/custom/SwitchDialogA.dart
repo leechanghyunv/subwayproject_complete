@@ -50,7 +50,7 @@ class _SwitchDialogAState extends State<SwitchDialogA> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DialogDesign(
-            DesignText: 'RealTime Arrival',
+            designText: 'RealTime Arrival',
           ),
           Padding(
             padding: const EdgeInsets.all(4.0),

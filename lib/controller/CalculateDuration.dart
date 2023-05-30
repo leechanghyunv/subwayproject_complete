@@ -28,7 +28,7 @@ class CalculateTime extends GetxController {
     Noti.initialize(flutterLocalNotificationsPlugin);
   }
 
-  Future<void> CallTimeA(String lng1, lat1, lng2, lat2,name1,name2) async {
+  Future<void> callTimeA(String lng1, lat1, lng2, lat2,name1,name2) async {
     final url =
         '$body?ServiceKey=$key&startX=$lng1&startY=$lat1&endX=$lng2&endY=$lat2';
     try {
@@ -75,7 +75,7 @@ class CalculateTime extends GetxController {
     }
   }
 
-  Future<void> CallTimeB(String lng1, lat1, lng2, lat2, name1, name2) async {
+  Future<void> callTimeB(String lng1, lat1, lng2, lat2, name1, name2) async {
     final url =
         '$body?ServiceKey=$key&startX=$lng1&startY=$lat1&endX=$lng2&endY=$lat2';
     try {

@@ -15,9 +15,9 @@ import 'SecondPage.dart';
 
 class DialogPage extends StatefulWidget {
 
-  final String GetLine;
+  final String getLine;
 
-  const DialogPage({Key? key, required this.GetLine}) : super(key: key);
+  const DialogPage({Key? key, required this.getLine}) : super(key: key);
 
   @override
   State<DialogPage> createState() => _DialogPageState();
@@ -27,12 +27,12 @@ class _DialogPageState extends State<DialogPage> {
 
   final Distance _distance = Distance();
   final geolocator = Get.put(GetLocation());
-  final WeatherC = Get.put(WeatherController());
-  final Datas = Get.put(Retrieve());
-  final Seoul = Get.put(Controller());
+  final weatherC = Get.put(WeatherController());
+  final datas = Get.put(Retrieve());
+  final seoul = Get.put(Controller());
 
-  late String LineToId = '';
-  late String DisplayLine = '';
+  late String lineToId = '';
+  late String displayLine = '';
   late List<String> Line = [];
   late List<SubwayModel> filteredSubwayInfos;
   late List<dynamic> subwayList = [];
@@ -41,10 +41,10 @@ class _DialogPageState extends State<DialogPage> {
   @override
   void initState() {
     super.initState();
-    Datas.RetriveLine(LineList,widget.GetLine);
-    LineToId = Datas.numberS;  // 1001
-    DisplayLine = Datas.LineStringBS;
-    WeatherC.CallWeather();
+    datas.retriveLine(LineList,widget.getLine);
+    lineToId = datas.numberS;  // 1001
+    displayLine = datas.lineStringBS;
+    weatherC.callWeather();
     for (var i = 0; i < SubwayInfos.length; i++) {
       final km = _distance.as(
           LengthUnit.Meter,
@@ -55,7 +55,7 @@ class _DialogPageState extends State<DialogPage> {
     SubwayInfos.sort((a, b) => a.km!.compareTo(b.km!));
     filteredSubwayInfos =
         SubwayInfos.where((element) => element.line.contains(
-            widget.GetLine
+            widget.getLine
         )).toList();
   }
   @override
@@ -92,12 +92,12 @@ class _DialogPageState extends State<DialogPage> {
                         children: [
                           SlidableAction(
                             onPressed: ((context)  {
-                              Seoul.CallArrival(row.name);
+                              seoul.callArrival(row.name);
                               showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
                                     title: DialogDesign(
-                                        DesignText: 'Subway Location Map '),
+                                        designText: 'Subway Location Map '),
                                     content: Container(
                                       width: double.maxFinite,
                                       height: appHeight * 0.6,/// 330
@@ -132,7 +132,7 @@ class _DialogPageState extends State<DialogPage> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           children: <Widget>[
-                                            DialogDesign(DesignText: 'civil complaint Box'),
+                                            DialogDesign(designText: 'civil complaint Box'),
                                             const Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: SmsContainer(),
@@ -140,7 +140,7 @@ class _DialogPageState extends State<DialogPage> {
                                             Padding(
                                               padding: const EdgeInsets.all(8.0),
                                               child: DialogDesignBoxC(
-                                                stringNumber: widget.GetLine,
+                                                stringNumber: widget.getLine,
                                                 subwayName: row.name,
                                               ),
                                             ),
@@ -152,7 +152,7 @@ class _DialogPageState extends State<DialogPage> {
 
                                         SizedBox(
                                           child: SmsFunction(
-                                              subwayline: widget.GetLine
+                                              subwayline: widget.getLine
                                           ),
                                         ),
                                       ],
@@ -173,11 +173,11 @@ class _DialogPageState extends State<DialogPage> {
                           children: [
                             GestureDetector(
                               onTap: () async {
-                                await Seoul.CallArrival(row.name);
-                                Datas.RetriveLineS(LineList,widget.GetLine);
-                                Datas.SavePositionS(SubwayInfos, row.name);
-                                LineToId = Datas.numberS;  // 1001
-                                DisplayLine = Datas.LineStringBS;
+                                await seoul.callArrival(row.name);
+                                datas.retriveLineS(LineList,widget.getLine);
+                                datas.savePositionS(SubwayInfos, row.name);
+                                lineToId = datas.numberS;  // 1001
+                                displayLine = datas.lineStringBS;
                                 showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
@@ -185,7 +185,7 @@ class _DialogPageState extends State<DialogPage> {
                                         child: GetBuilder<Controller>(
                                             init: Controller(),
                                             builder: (Seoul){
-                                              var arrival = Seoul.arrival.where((element) => element.subwayId == LineToId).toList();
+                                              var arrival = Seoul.arrival.where((element) => element.subwayId == lineToId).toList();
                                               if (arrival.isEmpty) {
                                                 return TextFrame(comment: '도착 정보가 없습니다.');
                                               }
@@ -197,7 +197,7 @@ class _DialogPageState extends State<DialogPage> {
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  TextFrame(comment: '\n${DisplayLine} ${row.name}역'),
+                                                  TextFrame(comment: '\n${displayLine} ${row.name}역'),
                                                   TextFrame(comment: updn1First.toString().toString()),
                                                   TextFrame(comment: updn1Last.toString().toString()),
                                                   TextFrame(comment: updn2First.toString().toString()),
@@ -208,14 +208,14 @@ class _DialogPageState extends State<DialogPage> {
 
                                         children: [
 
-                                          WeatherC.weathericon,
+                                          weatherC.weathericon,
                                           SizedBox(width: 5,),
-                                          TextFrame(comment: '${WeatherC.des.value} ${WeatherC.temperature.value.
+                                          TextFrame(comment: '${weatherC.des.value} ${weatherC.temperature.value.
                                           toStringAsFixed(1)}\u2103',),
                                           Expanded(child: Text(''),),
                                           PopupMenuButton(
                                             itemBuilder: (BuildContext context) {
-                                              return Datas.lineS.map((String item){
+                                              return datas.lineS.map((String item){
                                                 return PopupMenuItem<String>(
                                                   value: item,
                                                   child: TextFrame(comment: item),
@@ -224,15 +224,15 @@ class _DialogPageState extends State<DialogPage> {
                                             },
                                             child: Icon(Icons.menu),
                                             onSelected: (String value) {
-                                              Seoul.update();
+                                              seoul.update();
                                               setState(() {
                                                 selected = value;
-                                                Datas.RetriveLineS(LineList,selected);
-                                                Datas.SavePositionS(SubwayInfos, row.name);
-                                                LineToId = Datas.numberS;
-                                                DisplayLine = Datas.LineStringBS;
-                                                print('${LineToId} ${DisplayLine}');
-                                                Seoul.CallArrival(row.name);
+                                                datas.retriveLineS(LineList,selected);
+                                                datas.savePositionS(SubwayInfos, row.name);
+                                                lineToId = datas.numberS;
+                                                displayLine = datas.lineStringBS;
+                                                print('${lineToId} ${displayLine}');
+                                                seoul.callArrival(row.name);
                                               });
                                             },
                                           ),
@@ -244,33 +244,33 @@ class _DialogPageState extends State<DialogPage> {
                                             // addlist(subwayList,row.name);
 
                                             box.write('subwayA',row.name);
-                                            box.write('latA',Datas.latS);
-                                            box.write('lngA',Datas.lngS);
-                                            box.write('engA',Datas.engNameS);
+                                            box.write('latA',datas.latS);
+                                            box.write('lngA',datas.lngS);
+                                            box.write('engA',datas.engNameS);
                                             box.write('lineA',selected);
-                                            box.write('line_to_NumA',LineToId);
-                                            box.write('codeA',Seoul.CodeResult);
-                                            box.write('convertA',Datas.LineStringBS);
+                                            box.write('line_to_NumA',lineToId);
+                                            box.write('codeA',seoul.codeResult);
+                                            box.write('convertA',datas.lineStringBS);
 
                                             print('${selected} ${box.read('subwayA')}');
-                                            Savemsg(
-                                                row.name,Datas.engNameS
+                                            savemsg(
+                                                row.name,datas.engNameS
                                             );
                                           },
                                           onLongPress: (){
                                             // addlist(subwayList,row.name);
 
                                             box.write('subwayB',row.name);
-                                            box.write('latB',Datas.latS);
-                                            box.write('lngB',Datas.lngS);
-                                            box.write('engB',Datas.engNameS);
+                                            box.write('latB',datas.latS);
+                                            box.write('lngB',datas.lngS);
+                                            box.write('engB',datas.engNameS);
                                             box.write('lineB',selected);
-                                            box.write('line_to_NumB',LineToId);
-                                            box.write('codeB',Seoul.CodeResult);
-                                            box.write('convertB',Datas.LineStringBS);
+                                            box.write('line_to_NumB',lineToId);
+                                            box.write('codeB',seoul.codeResult);
+                                            box.write('convertB',datas.lineStringBS);
                                             print('${selected} ${box.read('subwayB')}');
-                                            Savemsg(
-                                                row.name,Datas.engNameS
+                                            savemsg(
+                                                row.name,datas.engNameS
                                             );
                                           },
                                           comment: 'Save',
@@ -314,7 +314,7 @@ class _DialogPageState extends State<DialogPage> {
     );
   }
 
-  Future<bool?> Savemsg(String name, String ename) => Fluttertoast.showToast(
+  Future<bool?> savemsg(String name, String ename) => Fluttertoast.showToast(
       msg:'목적지 ${name}가 저장되었습니다.\n${ename}',
       gravity: ToastGravity.CENTER);
 

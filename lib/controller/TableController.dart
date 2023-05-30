@@ -12,7 +12,7 @@ class TableController extends GetxController {
   RxList<TableModel> tableB = RxList<TableModel>([]);
 
 
-  Future<void> CallData1(String code) async {
+  Future<void> callData1(String code) async {
 
     /// 앞에 1은 평일 2는 주말 3은 공휴일  // 뒤에 1은 상행 2는 하행
 
@@ -21,7 +21,7 @@ class TableController extends GetxController {
     tableA.assignAll(TableData.map((e) => TableModel.fromJson(e)).toList());
   }
 
-  Future<void> CallData2(String code) async {
+  Future<void> callData2(String code) async {
 
     final response = await apiservice.GetTable(code,'1','2');
     final Iterable TableData = jsonDecode(response.body)['SearchSTNTimeTableByIDService']['row'];

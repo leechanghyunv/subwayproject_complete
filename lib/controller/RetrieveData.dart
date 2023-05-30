@@ -30,20 +30,20 @@ class Retrieve extends GetxController {
   String engNameU = '';
   String subwayNameU = 'SEOUL';
 
-  String LineStringA = '';
-  String LineStringB = '';
+  String lineStringA = '';
+  String lineStringB = '';
   String number = '';
 
-  String LineStringAT = '';
-  String LineStringBT = '';
+  String lineStringAT = '';
+  String lineStringBT = '';
   String numberT = '';
 
-  String LineStringAS = '';
-  String LineStringBS = '';
+  String lineStringAS = '';
+  String lineStringBS = '';
   String numberS = '';
 
-  String LineStringAU = '';
-  String LineStringBU = '';
+  String lineStringAU = '';
+  String lineStringBU = '';
   String numberU = '';
 
   bool showTable = false;
@@ -58,7 +58,7 @@ class Retrieve extends GetxController {
     line = info[index].line;
   }
 
-  void SavePositionT(List<SubwayModel> info, String Name) {
+  void savePositionT(List<SubwayModel> info, String Name) {
     final index = info.indexWhere((element) => element.name == Name);
 
     engNameT = info[index].engname;
@@ -66,7 +66,7 @@ class Retrieve extends GetxController {
     lineT = info[index].line;
   }
 
-  void SavePositionS(List<SubwayModel> info, String Name) {
+  void savePositionS(List<SubwayModel> info, String Name) {
     final index = info.indexWhere((element) => element.name == Name);
 
     latS = info[index].lat;
@@ -76,7 +76,7 @@ class Retrieve extends GetxController {
     lineS = info[index].line;
   }
 
-  void SavePositionU(List<SubwayModel> info, String Name) {
+  void savePositionU(List<SubwayModel> info, String Name) {
     final index = info.indexWhere((element) => element.name == Name);
 
     latU = info[index].lat;
@@ -88,35 +88,35 @@ class Retrieve extends GetxController {
 
 
 
-  void RetriveLine(List<LineCode> LineList, String StringLine) {
+  void retriveLine(List<LineCode> LineList, String StringLine) {
     final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
 
-    LineStringA = LineList[index].LineStringA;
-    LineStringB = LineList[index].LineStringB;
+    lineStringA = LineList[index].LineStringA;
+    lineStringB = LineList[index].LineStringB;
     number = LineList[index].number;
   }
 
-  void RetriveLineT(List<LineCode> LineList, String StringLine) {
+  void retriveLineT(List<LineCode> LineList, String StringLine) {
     final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
 
-    LineStringAT = LineList[index].LineStringA;
-    LineStringBT = LineList[index].LineStringB;
+    lineStringAT = LineList[index].LineStringA;
+    lineStringBT = LineList[index].LineStringB;
     numberT = LineList[index].number;
   }
 
-  void RetriveLineS(List<LineCode> LineList, String StringLine) {
+  void retriveLineS(List<LineCode> LineList, String StringLine) {
     final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
 
-    LineStringAS = LineList[index].LineStringA;
-    LineStringBS = LineList[index].LineStringB;
+    lineStringAS = LineList[index].LineStringA;
+    lineStringBS = LineList[index].LineStringB;
     numberS = LineList[index].number;
   }
 
-  void RetriveLineU(List<LineCode> LineList, String StringLine) {
+  void retriveLineU(List<LineCode> LineList, String StringLine) {
     final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
 
-    LineStringAU = LineList[index].LineStringA;
-    LineStringBU = LineList[index].LineStringB;
+    lineStringAU = LineList[index].LineStringA;
+    lineStringBU = LineList[index].LineStringB;
     numberU = LineList[index].number;
   }
 
