@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750309623479",
+    "project_id": "subwayproject230525",
+    "storage_bucket": "subwayproject230525.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750309623479:android:8ada2157dd7456b6602f32",
+        "android_client_info": {
+          "package_name": "com.example.subway_project_230525"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChTI8jflzkp9tkeXVP_C9oimUEoBfilrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
