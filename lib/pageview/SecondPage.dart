@@ -41,8 +41,6 @@ class _SecondPageState extends State<SecondPage> {
   String textA = '';
   String textB = '';
 
-  int? _value = 1;
-
   late List<dynamic> subwayList = [];
 
   @override
@@ -321,7 +319,6 @@ class _SecondPageState extends State<SecondPage> {
                                       padding: 8.0,
                                       showOnOff: true,
                                       onToggle: (val) {
-
                                         setState(() {
                                           if(val == false){
                                             callTableB();

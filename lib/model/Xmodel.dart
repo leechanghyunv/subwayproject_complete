@@ -168,7 +168,6 @@ List<SubwayModel> SubwayInfos = [
   SubwayModel(name:'신림',	engname:	'Sillim ',	lat:	37.484201,	lng:	126.929715,	line: ['Line2','신림']),
 
   SubwayModel(name:'신촌',	engname:	'Sinchon',	lat:	37.555134,	lng:	126.936893,	line: ['Line2']),
-
   SubwayModel(name:'신촌(경의.중앙선)',	engname:	'Sinchon',	lat:	37.559746,	lng:	126.942580,	line: ['경의중앙']),
 
   SubwayModel(name:'아현',	engname:	'Ahyeon (Chugye Univ. for the Arts)',	lat:	37.557345,	lng:	126.956141,	line: ['Line2']),

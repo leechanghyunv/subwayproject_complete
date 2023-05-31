@@ -4,7 +4,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import '../controller/Geolocation.dart';
 import '../controller/UriController.dart';
-import '../main.dart';
 import '../parts/DesignDialogC.dart';
 import '../parts/Export.dart';
 import '../parts/QrContainer.dart';
@@ -33,7 +32,6 @@ class _DialogPageState extends State<DialogPage> {
 
   late String lineToId = '';
   late String displayLine = '';
-  late List<String> Line = [];
   late List<SubwayModel> filteredSubwayInfos;
   late List<dynamic> subwayList = [];
   String selected = '';
@@ -86,7 +84,6 @@ class _DialogPageState extends State<DialogPage> {
                     var row = filteredSubwayInfos[index];
 
                     return Slidable(
-
                       startActionPane:  ActionPane(
                         motion: StretchMotion(),
                         children: [
@@ -167,140 +164,146 @@ class _DialogPageState extends State<DialogPage> {
 
                           ]),
 
-                      child: ListTile(
-                        selectedColor: Colors.grey[300],
-                        title: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () async {
-                                await seoul.callArrival(row.name);
-                                datas.retriveLineS(LineList,widget.getLine);
-                                datas.savePositionS(SubwayInfos, row.name);
-                                lineToId = datas.numberS;  // 1001
-                                displayLine = datas.lineStringBS;
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      content: SwitchDialogA(
-                                        child: GetBuilder<Controller>(
-                                            init: Controller(),
-                                            builder: (Seoul){
-                                              var arrival = Seoul.arrival.where((element) => element.subwayId == lineToId).toList();
-                                              if (arrival.isEmpty) {
-                                                return TextFrame(comment: '도착 정보가 없습니다.');
-                                              }
-                                              var updnLine1 = ['상행', '내선'], updnLine2 = ['하행', '외선'];
-                                              var updn1First = arrival.where((element) => updnLine1.contains(element.updnLine)).map((e) => '\n${e.trainLineNm} ${e.arvlMsg2}').first;
-                                              var updn1Last = arrival.where((element) => updnLine1.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}\n').last;
-                                              var updn2First = arrival.where((element) => updnLine2.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}').first;
-                                              var updn2Last = arrival.where((element) => updnLine2.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}\n').last;
-                                              return Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  TextFrame(comment: '\n${displayLine} ${row.name}역'),
-                                                  TextFrame(comment: updn1First.toString().toString()),
-                                                  TextFrame(comment: updn1Last.toString().toString()),
-                                                  TextFrame(comment: updn2First.toString().toString()),
-                                                  TextFrame(comment: updn2Last.toString().toString()),
-                                                ],
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 3),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () async {
+                              await seoul.callArrival(row.name);
+                              datas.retriveLineS(LineList,widget.getLine);
+                              datas.savePositionS(SubwayInfos, row.name);
+                              lineToId = datas.numberS;  // 1001
+                              displayLine = datas.lineStringBS;
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    content: SwitchDialogA(
+                                      child: GetBuilder<Controller>(
+                                          init: Controller(),
+                                          builder: (Seoul){
+                                            var arrival = Seoul.arrival.where((element) => element.subwayId == lineToId).toList();
+                                            if (arrival.isEmpty) {
+                                              return TextFrame(comment: '도착 정보가 없습니다.');
+                                            }
+                                            var updnLine1 = ['상행', '내선'], updnLine2 = ['하행', '외선'];
+                                            var updn1First = arrival.where((element) => updnLine1.contains(element.updnLine)).map((e) => '\n${e.trainLineNm} ${e.arvlMsg2}').first;
+                                            var updn1Last = arrival.where((element) => updnLine1.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}\n').last;
+                                            var updn2First = arrival.where((element) => updnLine2.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}').first;
+                                            var updn2Last = arrival.where((element) => updnLine2.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}\n').last;
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                TextFrame(comment: '\n${displayLine} ${row.name}역'),
+                                                TextFrame(comment: updn1First.toString().toString()),
+                                                TextFrame(comment: updn1Last.toString().toString()),
+                                                TextFrame(comment: updn2First.toString().toString()),
+                                                TextFrame(comment: updn2Last.toString().toString()),
+                                              ],
+                                            );
+                                          }),
+
+                                      children: [
+
+                                        weatherC.weathericon,
+                                        SizedBox(width: 5,),
+                                        TextFrame(comment: '${weatherC.des.value} ${weatherC.temperature.value.
+                                        toStringAsFixed(1)}\u2103',),
+                                        Expanded(child: Text(''),),
+                                        PopupMenuButton(
+                                          itemBuilder: (BuildContext context) {
+                                            return datas.lineS.map((String item){
+                                              return PopupMenuItem<String>(
+                                                value: item,
+                                                child: TextFrame(comment: item),
                                               );
-                                            }),
-
-                                        children: [
-
-                                          weatherC.weathericon,
-                                          SizedBox(width: 5,),
-                                          TextFrame(comment: '${weatherC.des.value} ${weatherC.temperature.value.
-                                          toStringAsFixed(1)}\u2103',),
-                                          Expanded(child: Text(''),),
-                                          PopupMenuButton(
-                                            itemBuilder: (BuildContext context) {
-                                              return datas.lineS.map((String item){
-                                                return PopupMenuItem<String>(
-                                                  value: item,
-                                                  child: TextFrame(comment: item),
-                                                );
-                                              }).toList();
-                                            },
-                                            child: Icon(Icons.menu),
-                                            onSelected: (String value) {
-                                              seoul.update();
-                                              setState(() {
-                                                selected = value;
-                                                datas.retriveLineS(LineList,selected);
-                                                datas.savePositionS(SubwayInfos, row.name);
-                                                lineToId = datas.numberS;
-                                                displayLine = datas.lineStringBS;
-                                                print('${lineToId} ${displayLine}');
-                                                seoul.callArrival(row.name);
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                      actions: [
-                                        DialogButton(
-                                          onPressed: (){
-                                            // addlist(subwayList,row.name);
-
-                                            box.write('subwayA',row.name);
-                                            box.write('latA',datas.latS);
-                                            box.write('lngA',datas.lngS);
-                                            box.write('engA',datas.engNameS);
-                                            box.write('lineA',selected);
-                                            box.write('line_to_NumA',lineToId);
-                                            box.write('codeA',seoul.codeResult);
-                                            box.write('convertA',datas.lineStringBS);
-
-                                            print('${selected} ${box.read('subwayA')}');
-                                            savemsg(
-                                                row.name,datas.engNameS
-                                            );
+                                            }).toList();
                                           },
-                                          onLongPress: (){
-                                            // addlist(subwayList,row.name);
-
-                                            box.write('subwayB',row.name);
-                                            box.write('latB',datas.latS);
-                                            box.write('lngB',datas.lngS);
-                                            box.write('engB',datas.engNameS);
-                                            box.write('lineB',selected);
-                                            box.write('line_to_NumB',lineToId);
-                                            box.write('codeB',seoul.codeResult);
-                                            box.write('convertB',datas.lineStringBS);
-                                            print('${selected} ${box.read('subwayB')}');
-                                            savemsg(
-                                                row.name,datas.engNameS
-                                            );
+                                          child: Icon(Icons.menu),
+                                          onSelected: (String value) {
+                                            seoul.update();
+                                            setState(() {
+                                              selected = value;
+                                              datas.retriveLineS(LineList,selected);
+                                              datas.savePositionS(SubwayInfos, row.name);
+                                              lineToId = datas.numberS;
+                                              displayLine = datas.lineStringBS;
+                                              print('${lineToId} ${displayLine}');
+                                              seoul.callArrival(row.name);
+                                            });
                                           },
-                                          comment: 'Save',
-                                        ),
-                                        DialogButton(
-                                          onPressed: (){
-                                            Navigator.pop(context);
-                                          },
-                                          comment: 'Adapt',
                                         ),
                                       ],
-                                    ));
-                              },
-                              child: Text('${row.name}',
+                                    ),
+                                    actions: [
+                                      DialogButton(
+                                        onPressed: (){
+                                          // addlist(subwayList,row.name);
+
+                                          box.write('subwayA',row.name);
+                                          box.write('latA',datas.latS);
+                                          box.write('lngA',datas.lngS);
+                                          box.write('engA',datas.engNameS);
+                                          box.write('lineA',selected);
+                                          box.write('line_to_NumA',lineToId);
+                                          box.write('codeA',seoul.codeResult);
+                                          box.write('convertA',datas.lineStringBS);
+
+                                          print('${selected} ${box.read('subwayA')}');
+                                          savemsg(
+                                              row.name,datas.engNameS
+                                          );
+                                        },
+                                        onLongPress: (){
+                                          // addlist(subwayList,row.name);
+
+                                          box.write('subwayB',row.name);
+                                          box.write('latB',datas.latS);
+                                          box.write('lngB',datas.lngS);
+                                          box.write('engB',datas.engNameS);
+                                          box.write('lineB',selected);
+                                          box.write('line_to_NumB',lineToId);
+                                          box.write('codeB',seoul.codeResult);
+                                          box.write('convertB',datas.lineStringBS);
+                                          print('${selected} ${box.read('subwayB')}');
+                                          savemsg(
+                                              row.name,datas.engNameS
+                                          );
+                                        },
+                                        comment: 'Save',
+                                      ),
+                                      DialogButton(
+                                        onPressed: (){
+                                          Navigator.pop(context);
+                                        },
+                                        comment: 'Adapt',
+                                      ),
+                                    ],
+                                  ));
+                            },
+                            child: ListTile(
+                              selectedColor: Colors.grey[300],
+                              title: Row(
+                                children: [
+                                  Text('${row.name}',
+                                    style: TextStyle(
+                                        fontSize:appHeight * 0.015,
+                                        fontWeight:FontWeight.bold,
+                                        color: Colors.black,
+                                        overflow: TextOverflow.ellipsis
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              trailing: Text('${row.km?.toStringAsFixed(0)}m',
                                 style: TextStyle(
-                                    fontSize:appHeight * 0.015,
+                                    fontSize:appHeight * 0.0165,
                                     fontWeight:FontWeight.bold,
                                     color: Colors.black,
                                     overflow: TextOverflow.ellipsis
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        trailing: Text('${row.km?.toStringAsFixed(0)}m',
-                          style: TextStyle(
-                              fontSize:appHeight * 0.0165,
-                              fontWeight:FontWeight.bold,
-                              color: Colors.black,
-                              overflow: TextOverflow.ellipsis
                           ),
                         ),
                       ),

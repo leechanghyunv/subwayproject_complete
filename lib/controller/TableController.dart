@@ -11,22 +11,33 @@ class TableController extends GetxController {
   RxList<TableModel> tableA = RxList<TableModel>([]);
   RxList<TableModel> tableB = RxList<TableModel>([]);
 
+  /// 앞에 1은 평일 2는 주말 3은 공휴일  // 뒤에 1은 상행 2는 하행
+  /// "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
 
+  final String eee = DateFormat('EEE').format(DateTime.now());
   Future<void> callData1(String code) async {
-
-    /// 앞에 1은 평일 2는 주말 3은 공휴일  // 뒤에 1은 상행 2는 하행
-
-    final response = await apiservice.GetTable(code,'1','1');
+    callday(eee);
+    final response = await apiservice.GetTable(code,callday(eee),'1');
     final Iterable TableData = jsonDecode(response.body)['SearchSTNTimeTableByIDService']['row'];
     tableA.assignAll(TableData.map((e) => TableModel.fromJson(e)).toList());
   }
 
   Future<void> callData2(String code) async {
-
-    final response = await apiservice.GetTable(code,'1','2');
+    callday(eee);
+    final response = await apiservice.GetTable(code,callday(eee),'2');
     final Iterable TableData = jsonDecode(response.body)['SearchSTNTimeTableByIDService']['row'];
     tableB.assignAll(TableData.map((e) => TableModel.fromJson(e)).toList());
   }
+
+String callday(String day){
+    if(day == "Sat"){
+      return '2';
+    } else if(day == "Sun") {
+      return '2';
+    } else {
+      return '1';
+    }
+}
 
 
 
