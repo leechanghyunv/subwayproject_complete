@@ -9,7 +9,6 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../model/ArrivalModel.dart';
 import '../model/CodeModel.dart';
 import '../model/DataModelB.dart';
-import '../model/Xmodel.dart';
 import 'RetrieveData.dart';
 
 class Controller extends GetxController {

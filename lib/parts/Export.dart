@@ -21,7 +21,6 @@ export '../custom/ToggleSwitch.dart';
 export '../custom/TransferButton.dart';
 export '../custom/UpandDown.dart';
 export '../model/InPutModel.dart';
-export '../model/Xmodel.dart';
 export '../parts/ButtomDesign.dart';
 export '../parts/ColorBar.dart';
 export '../parts/DesignTextA.dart';
