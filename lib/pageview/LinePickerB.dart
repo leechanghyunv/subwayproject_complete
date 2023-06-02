@@ -8,6 +8,7 @@ import '../controller/ApiController.dart';
 import '../controller/RetrieveData.dart';
 import '../custom/TextFrame.dart';
 import '../main.dart';
+import '../model/DataModelB.dart';
 import '../model/LineModel.dart';
 import '../model/Xmodel.dart';
 import '../parts/QrContainer.dart';

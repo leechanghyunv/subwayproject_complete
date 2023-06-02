@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../model/DataModelB.dart';
 import '../parts/DesignTextB.dart';
 import '../parts/Export.dart';
 import 'IntroPage.dart';
@@ -7,6 +8,7 @@ import 'LinePickerB.dart';
 import 'LoadingPage.dart';
 import 'SecondPage.dart';
 import 'Layout.dart';
+import '../model/DataModelA.dart';
 
 final box = GetStorage();
 class HomePage extends StatefulWidget {
@@ -101,10 +103,10 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.white,
                                                   height: appHeight * 0.3907, /// 0.3907
                                                   child: TextFormA(
-                                                    itemSubmitted: (value1){
+                                                    onSelected: (value1){
                                                       setState(() {
-                                                        subwayname = value1;
-                                                        datas.SavePosition(SubwayInfos, subwayname);
+                                                        subwayname = value1.name;
+                                                        datas.SavePosition(subwayInfos, subwayname);
                                                       });
                                                       OpenDialog(subwayname);
                                                     },
@@ -134,6 +136,7 @@ class _HomePageState extends State<HomePage> {
                                                         box.write('convertA',datas.lineStringB);
                                                         box.write(subwayname,stringNumber);
                                                         savemsg('목적지 A',subwayname,datas.engName);
+                                                        print('${box.read('subwayA')} ${box.read('line_to_NumA')} ${box.read('codeA')}');
                                                       }else if(subwayname == 'SEOUL'){
                                                         showmsg();
                                                       }
@@ -172,17 +175,17 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.white,
                                                   height: appHeight * 0.45,
                                                   child: TextFormB(
-                                                    itemSubmittedA: (value1) {
+                                                    onSelectedA: (value1) {
                                                       setState(() {
-                                                        subwayname = value1;
-                                                        datas.SavePosition(SubwayInfos, subwayname);
+                                                        subwayname = value1.name;
+                                                        datas.SavePosition(subwayInfos, subwayname);
                                                       });
                                                       OpenDialog(subwayname);
                                                     },
-                                                    itemSubmittedB: (value11) {
+                                                    onSelectedB: (value11) {
                                                       setState(() {
-                                                        subwaynameT = value11;
-                                                        datas.savePositionT(SubwayInfos, subwaynameT);
+                                                        subwaynameT = value11.name;
+                                                        datas.savePositionT(subwayInfos, subwaynameT);
                                                         box.write('subwayT', subwaynameT);
                                                         box.write('lineT', stringNumberT);
                                                       });
@@ -299,10 +302,10 @@ class _HomePageState extends State<HomePage> {
                                                             TextFrame(
                                                               comment: '\n${box.read('convertB')} ${box.read('subwayB')}역 -> ${box.read('subwayA')}역\n',
                                                             ),
-                                                            TextFrame(comment: updn1First.toString().toString()),
-                                                            TextFrame(comment: updn1Last.toString().toString()),
-                                                            TextFrame(comment: updn2First.toString().toString()),
-                                                            TextFrame(comment: updn2Last.toString().toString()),
+                                                            TextFrame(comment: updn1First.toString()),
+                                                            TextFrame(comment: updn1Last.toString()),
+                                                            TextFrame(comment: updn2First.toString()),
+                                                            TextFrame(comment: updn2Last.toString()),
                                                           ],
                                                         );
                                                       }catch(e){
@@ -385,7 +388,7 @@ class _HomePageState extends State<HomePage> {
                                                         onSelected: (isSelected) async {
                                                           await seoul.callArrival(row);
                                                           rowname = row;
-                                                          datas.SavePosition(SubwayInfos, row);
+                                                          datas.SavePosition(subwayInfos, row);
                                                           datas.retriveLine(LineList,box.read(row)); /// row1// Line1.Line2
                                                           lineToId = datas.number; /// 1001, 1002
                                                           stringNumber = box.read(row);
@@ -410,6 +413,8 @@ class _HomePageState extends State<HomePage> {
                                                   box.write('codeA',seoul.codeResult);
                                                   box.write('convertA',datas.lineStringB);
                                                   savemsg('목적지 A',rowname,datas.engName);
+                                                  print('${box.read('subwayA')} ${box.read('line_to_NumA')} ${box.read('codeA')}');
+
                                                 },
                                                 onLongPress: (){
                                                   box.write('subwayB',rowname);
@@ -460,10 +465,10 @@ class _HomePageState extends State<HomePage> {
                                                             TextFrame(
                                                               comment: '\n${box.read('convertA')} ${box.read('subwayA')}역 -> ${box.read('subwayB')}역\n',
                                                             ),
-                                                            TextFrame(comment: updn1First.toString().toString()),
-                                                            TextFrame(comment: updn1Last.toString().toString()),
-                                                            TextFrame(comment: updn2First.toString().toString()),
-                                                            TextFrame(comment: updn2Last.toString().toString()),
+                                                            TextFrame(comment: updn1First.toString()),
+                                                            TextFrame(comment: updn1Last.toString()),
+                                                            TextFrame(comment: updn2First.toString()),
+                                                            TextFrame(comment: updn2Last.toString()),
                                                           ],
                                                         );
                                                       }catch(e){

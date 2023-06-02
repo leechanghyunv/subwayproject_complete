@@ -1,7 +1,8 @@
 
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
-import '../model/Xmodel.dart';
+import '../model/DataModelA.dart';
+import '../model/DataModelB.dart';
 
 class Retrieve extends GetxController {
 
@@ -89,34 +90,34 @@ class Retrieve extends GetxController {
 
 
   void retriveLine(List<LineCode> LineList, String StringLine) {
-    final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
+    final index = LineList.indexWhere((element) => element.lineStringA == StringLine);
 
-    lineStringA = LineList[index].LineStringA;
-    lineStringB = LineList[index].LineStringB;
+    lineStringA = LineList[index].lineStringA;
+    lineStringB = LineList[index].lineStringB;
     number = LineList[index].number;
   }
 
   void retriveLineT(List<LineCode> LineList, String StringLine) {
-    final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
+    final index = LineList.indexWhere((element) => element.lineStringA == StringLine);
 
-    lineStringAT = LineList[index].LineStringA;
-    lineStringBT = LineList[index].LineStringB;
+    lineStringAT = LineList[index].lineStringA;
+    lineStringBT = LineList[index].lineStringB;
     numberT = LineList[index].number;
   }
 
   void retriveLineS(List<LineCode> LineList, String StringLine) {
-    final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
+    final index = LineList.indexWhere((element) => element.lineStringA == StringLine);
 
-    lineStringAS = LineList[index].LineStringA;
-    lineStringBS = LineList[index].LineStringB;
+    lineStringAS = LineList[index].lineStringA;
+    lineStringBS = LineList[index].lineStringB;
     numberS = LineList[index].number;
   }
 
   void retriveLineU(List<LineCode> LineList, String StringLine) {
-    final index = LineList.indexWhere((element) => element.LineStringA == StringLine);
+    final index = LineList.indexWhere((element) => element.lineStringA == StringLine);
 
-    lineStringAU = LineList[index].LineStringA;
-    lineStringBU = LineList[index].LineStringB;
+    lineStringAU = LineList[index].lineStringA;
+    lineStringBU = LineList[index].lineStringB;
     numberU = LineList[index].number;
   }
 

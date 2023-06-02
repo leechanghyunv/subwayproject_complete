@@ -7,6 +7,7 @@ import '../controller/ApiController.dart';
 import '../controller/RetrieveData.dart';
 import '../custom/TextFrame.dart';
 import '../main.dart';
+import '../model/DataModelB.dart';
 import '../model/LineModel.dart';
 import '../model/Xmodel.dart';
 import '../parts/QrContainer.dart';
@@ -39,13 +40,7 @@ class _LinePickerAState extends State<LinePickerA> {
 
   @override
   Widget build(BuildContext context) {
-    double appHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-
-    ///  896.0 IPHONE11
-
+    double appHeight = MediaQuery.of(context).size.height;
     return Container(
       height: datas.line.length == 1 ? 270
           : datas.line.length == 2 ? 320
@@ -58,8 +53,6 @@ class _LinePickerAState extends State<LinePickerA> {
       width: double.maxFinite,
       child: Column(
         children: [
-
-          /// /// ///
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: DialogDesign(

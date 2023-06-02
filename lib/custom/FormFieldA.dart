@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import '../model/DataModelA.dart';
 import '../pageview/MainPage.dart';
 import '../parts/DesignDialogA.dart';
 import '../parts/QrContainer.dart';
@@ -8,7 +9,7 @@ import 'InputName.dart';
 import 'InputSubway.dart';
 
 class TextFormA extends StatefulWidget {
-  final dynamic Function(String) itemSubmitted;
+  final void Function(SubwayModel)? onSelected;
   final Function(String) onSubmitted;
   final String stringNumber;
   final String subwayName;
@@ -16,7 +17,7 @@ class TextFormA extends StatefulWidget {
 
   const TextFormA(
       {Key? key,
-        required this.itemSubmitted,
+        required this.onSelected,
         required this.onSubmitted,
         required this.stringNumber,
         required this.subwayName,
@@ -65,7 +66,7 @@ class _TextFormAState extends State<TextFormA> {
                     height: appHeight * 0.0112,
                   ),
                   InputSubway(
-                      itemSubmitted: widget.itemSubmitted
+                      onSelected: widget.onSelected
                   ),
                   SizedBox(
                     height: appHeight * 0.0168,

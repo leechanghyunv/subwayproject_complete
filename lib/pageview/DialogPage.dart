@@ -4,6 +4,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import '../controller/Geolocation.dart';
 import '../controller/UriController.dart';
+import '../model/DataModelA.dart';
+import '../model/DataModelB.dart';
 import '../parts/DesignDialogC.dart';
 import '../parts/Export.dart';
 import '../parts/QrContainer.dart';
@@ -43,16 +45,16 @@ class _DialogPageState extends State<DialogPage> {
     lineToId = datas.numberS;  // 1001
     displayLine = datas.lineStringBS;
     weatherC.callWeather();
-    for (var i = 0; i < SubwayInfos.length; i++) {
+    for (var i = 0; i < subwayInfos.length; i++) {
       final km = _distance.as(
           LengthUnit.Meter,
           LatLng(geolocator.lat, geolocator.lng),
-          LatLng(SubwayInfos[i].lat, SubwayInfos[i].lng));
-      SubwayInfos[i].km = km;
+          LatLng(subwayInfos[i].lat, subwayInfos[i].lng));
+      subwayInfos[i] = subwayInfos[i].setKm(km);
     }
-    SubwayInfos.sort((a, b) => a.km!.compareTo(b.km!));
+    subwayInfos.sort((a, b) => a.km!.compareTo(b.km!));
     filteredSubwayInfos =
-        SubwayInfos.where((element) => element.line.contains(
+        subwayInfos.where((element) => element.line.contains(
             widget.getLine
         )).toList();
   }
@@ -82,7 +84,6 @@ class _DialogPageState extends State<DialogPage> {
                   itemCount: filteredSubwayInfos.length,
                   itemBuilder: (context, index){
                     var row = filteredSubwayInfos[index];
-
                     return Slidable(
                       startActionPane:  ActionPane(
                         motion: StretchMotion(),
@@ -172,7 +173,7 @@ class _DialogPageState extends State<DialogPage> {
                             onTap: () async {
                               await seoul.callArrival(row.name);
                               datas.retriveLineS(LineList,widget.getLine);
-                              datas.savePositionS(SubwayInfos, row.name);
+                              datas.savePositionS(subwayInfos, row.name);
                               lineToId = datas.numberS;  // 1001
                               displayLine = datas.lineStringBS;
                               showDialog(
@@ -195,16 +196,15 @@ class _DialogPageState extends State<DialogPage> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 TextFrame(comment: '\n${displayLine} ${row.name}역'),
-                                                TextFrame(comment: updn1First.toString().toString()),
-                                                TextFrame(comment: updn1Last.toString().toString()),
-                                                TextFrame(comment: updn2First.toString().toString()),
-                                                TextFrame(comment: updn2Last.toString().toString()),
+                                                TextFrame(comment: updn1First.toString()),
+                                                TextFrame(comment: updn1Last.toString()),
+                                                TextFrame(comment: updn2First.toString()),
+                                                TextFrame(comment: updn2Last.toString()),
                                               ],
                                             );
                                           }),
 
                                       children: [
-
                                         weatherC.weathericon,
                                         SizedBox(width: 5,),
                                         TextFrame(comment: '${weatherC.des.value} ${weatherC.temperature.value.
@@ -221,15 +221,15 @@ class _DialogPageState extends State<DialogPage> {
                                           },
                                           child: Icon(Icons.menu),
                                           onSelected: (String value) {
-                                            seoul.update();
+                                            seoul.callArrival(row.name);
+                                            seoul.callCode(row.name,value);
                                             setState(() {
                                               selected = value;
                                               datas.retriveLineS(LineList,selected);
-                                              datas.savePositionS(SubwayInfos, row.name);
+                                              datas.savePositionS(subwayInfos, row.name);
                                               lineToId = datas.numberS;
                                               displayLine = datas.lineStringBS;
-                                              print('${lineToId} ${displayLine}');
-                                              seoul.callArrival(row.name);
+                                              print('${lineToId} ${displayLine} ${selected}');
                                             });
                                           },
                                         ),
@@ -238,8 +238,6 @@ class _DialogPageState extends State<DialogPage> {
                                     actions: [
                                       DialogButton(
                                         onPressed: (){
-                                          // addlist(subwayList,row.name);
-
                                           box.write('subwayA',row.name);
                                           box.write('latA',datas.latS);
                                           box.write('lngA',datas.lngS);
@@ -248,15 +246,10 @@ class _DialogPageState extends State<DialogPage> {
                                           box.write('line_to_NumA',lineToId);
                                           box.write('codeA',seoul.codeResult);
                                           box.write('convertA',datas.lineStringBS);
-
-                                          print('${selected} ${box.read('subwayA')}');
-                                          savemsg(
-                                              row.name,datas.engNameS
-                                          );
+                                          savemsg('목적지 A',row.name,datas.engNameS);
+                                          print('${box.read('subwayA')} ${box.read('line_to_NumA')} ${box.read('codeA')}');
                                         },
                                         onLongPress: (){
-                                          // addlist(subwayList,row.name);
-
                                           box.write('subwayB',row.name);
                                           box.write('latB',datas.latS);
                                           box.write('lngB',datas.lngS);
@@ -265,10 +258,8 @@ class _DialogPageState extends State<DialogPage> {
                                           box.write('line_to_NumB',lineToId);
                                           box.write('codeB',seoul.codeResult);
                                           box.write('convertB',datas.lineStringBS);
-                                          print('${selected} ${box.read('subwayB')}');
-                                          savemsg(
-                                              row.name,datas.engNameS
-                                          );
+                                          savemsg('목적지 B',row.name,datas.engNameS);
+                                          print('${box.read('subwayB')} ${box.read('line_to_NumB')} ${box.read('codeB')}');
                                         },
                                         comment: 'Save',
                                       ),
@@ -307,7 +298,6 @@ class _DialogPageState extends State<DialogPage> {
                           ),
                         ),
                       ),
-
                     );
                   }
                   ),
@@ -317,8 +307,8 @@ class _DialogPageState extends State<DialogPage> {
     );
   }
 
-  Future<bool?> savemsg(String name, String ename) => Fluttertoast.showToast(
-      msg:'목적지 ${name}가 저장되었습니다.\n${ename}',
+  Future<bool?> savemsg(String position, String name, String ename) => Fluttertoast.showToast(
+      msg:'${position} ${name}가 저장되었습니다.\n${ename}',
       gravity: ToastGravity.CENTER);
 
 }
