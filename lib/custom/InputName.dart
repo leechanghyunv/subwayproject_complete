@@ -15,16 +15,13 @@ class InputName extends StatefulWidget {
   State<InputName> createState() => _InputNameState();
 }
 
-
 class _InputNameState extends State<InputName> {
 
   TextEditingController _controllerName = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     double appHeight = MediaQuery.of(context).size.height;    ///  896.0 IPHONE11
-
 
     return Container(
       width: appHeight * 0.2791,

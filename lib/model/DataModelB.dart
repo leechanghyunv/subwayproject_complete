@@ -12,7 +12,7 @@ class LineCode with _$LineCode{
   factory LineCode.fromJson(Map<String, Object?> json) => _$LineCodeFromJson(json);
 }
 
-List<LineCode> LineList = [
+List<LineCode> lineDataList = [
   const LineCode(lineStringA:"Line1",lineStringB:"01호선",number: '1001',),
   const LineCode(lineStringA:"Line2",lineStringB:"02호선",number: '1002',),
   const LineCode(lineStringA:"Line3",lineStringB:"03호선",number: '1003',),

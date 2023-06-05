@@ -103,5 +103,4 @@ class InputSubway extends StatelessWidget {
       ),
     );
   }
-
 }

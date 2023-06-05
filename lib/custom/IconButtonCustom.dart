@@ -13,12 +13,7 @@ class IconCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double appHeight = MediaQuery.of(context).size.height;
-
-    ///  896.0 IPHONE11
     double mainBoxHeight = appHeight * 0.58;
-
-    /// 520   ~ 519.68
-
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongPress,

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../model/DataModelA.dart';
@@ -43,7 +44,11 @@ class _TextFormAState extends State<TextFormA> {
       box.write('SaveA', false);
       Get.snackbar(
           'Save 버튼 사용법',
-          '\nSave를 짧게 누르면 목적지(출발지점)A 저장\nSave를 길게 누르면 목적지(도착지점)B 저장');
+          '\nSave를 짧게 누르면 목적지(출발지점)A 저장\nSave를 길게 누르면 목적지(도착지점)B 저장',
+        backgroundColor: Colors.white,
+        duration: Duration(seconds: 5),
+        shouldIconPulse: true,
+      );
     }else {
 
     }
@@ -52,7 +57,6 @@ class _TextFormAState extends State<TextFormA> {
   @override
   Widget build(BuildContext context) {
     double appHeight = MediaQuery.of(context).size.height;///  896.0 IPHONE11
-
     return Form(
         child: Column(
           children: [

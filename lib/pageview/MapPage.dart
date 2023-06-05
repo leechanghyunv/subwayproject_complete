@@ -7,15 +7,15 @@ class MapSample extends StatelessWidget {
   final double subwaylat;
   final double subwaylng;
 
-  const MapSample({Key? key, required this.subwaylat, required this.subwaylng})
+  const MapSample({Key? key,
+    required this.subwaylat,
+    required this.subwaylng})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final Completer<GoogleMapController> _controller =
-    Completer<GoogleMapController>();
-
+        Completer<GoogleMapController>();
 
     return Scaffold(
       body: GoogleMap(
@@ -34,7 +34,6 @@ class MapSample extends StatelessWidget {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-
       ),
     );
   }

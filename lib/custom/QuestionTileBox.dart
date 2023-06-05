@@ -3,12 +3,16 @@ import 'package:group_button/group_button.dart';
 import '../parts/Export.dart';
 
 class QuestionTile extends StatefulWidget {
-
   final String text;
   final dynamic Function(String, int, bool)? onSelected;
   final List<String> buttons;
 
-  const QuestionTile({Key? key, required this.text, this.onSelected, required this.buttons, }) : super(key: key);
+  const QuestionTile({
+    Key? key,
+    required this.text,
+    this.onSelected,
+    required this.buttons,
+  }) : super(key: key);
 
   @override
   State<QuestionTile> createState() => _QuestionTileState();

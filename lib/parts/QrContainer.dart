@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
 import '../custom/TextFrame.dart';
 
 class DialogDesign extends StatelessWidget {

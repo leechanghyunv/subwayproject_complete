@@ -1,9 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import '../controller/ApiController.dart';
 import '../controller/RetrieveData.dart';
 import '../custom/TextFrame.dart';
@@ -86,7 +84,7 @@ class _LinePickerBState extends State<LinePickerB> {
                               init: Controller(),
                               builder: (Seoul){
                                 try{
-                                  datas.retriveLineU(LineList, selectedList[index].name);
+                                  datas.retriveLineU(lineDataList, selectedList[index].name);
                                   var linelist = datas.numberU;
                                   print(linelist);
                                   var arrival = Seoul.arrival.where((element) => element.subwayId == linelist).toList();

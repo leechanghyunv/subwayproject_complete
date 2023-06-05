@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../model/DataModelB.dart';
+import 'package:subway_project_230525/model/DataModelB.dart';
+import '../model/DataModelA.dart';
 import '../parts/DesignTextB.dart';
 import '../parts/Export.dart';
 import 'IntroPage.dart';
@@ -8,7 +9,6 @@ import 'LinePickerB.dart';
 import 'LoadingPage.dart';
 import 'SecondPage.dart';
 import 'Layout.dart';
-import '../model/DataModelA.dart';
 
 final box = GetStorage();
 class HomePage extends StatefulWidget {
@@ -278,6 +278,7 @@ class _HomePageState extends State<HomePage> {
                                     if(index == 0){
                                       if(box.read('subwayA') != null)
                                       {
+                                        seoul.update();
                                         await seoul.callArrival(box.read('subwayB'));
                                         showDialog(
                                             context: context,
@@ -347,7 +348,7 @@ class _HomePageState extends State<HomePage> {
                                                           gravity: ToastGravity.CENTER)
                                                           .then((value) => datas.subwayName = box.read('subwayA'))
                                                           .then((value) => datas.engName = box.read('engA'))
-                                                          .then((value) => stringNumber = box.read('lineA'))
+                                                          .then((value) => stringNumber = box.read('lineA') ?? 'Line2')
                                                           .then((value) =>datas.lat1 = box.read('latA'))
                                                           .then((value) =>datas.lng1 = box.read('lngA'));
                                                     });
@@ -389,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                                                           await seoul.callArrival(row);
                                                           rowname = row;
                                                           datas.SavePosition(subwayInfos, row);
-                                                          datas.retriveLine(LineList,box.read(row)); /// row1// Line1.Line2
+                                                          datas.retriveLine(lineDataList,box.read(row)); /// row1// Line1.Line2
                                                           lineToId = datas.number; /// 1001, 1002
                                                           stringNumber = box.read(row);
                                                           seoul.callCode(row,box.read(row));
@@ -441,6 +442,7 @@ class _HomePageState extends State<HomePage> {
 
                                     else if(index == 2){
                                       if(box.read('subwayB') != null){
+                                        seoul.update();
                                         await seoul.callArrival(box.read('subwayA'));
                                         showDialog(
                                             context: context,
@@ -452,7 +454,7 @@ class _HomePageState extends State<HomePage> {
                                                       try{
                                                         var arrival = Seoul.arrival.where((element) => element.subwayId == box.read('line_to_NumA')).toList();
                                                         if (arrival.isEmpty) {
-                                                          return const TextFrame(comment: '도착 정보가 없습니다.');
+                                                          return TextFrame(comment: '도착 정보가 없습니다.');
                                                         }
                                                         var updnLine1 = ['상행', '내선'], updnLine2 = ['하행', '외선'];
                                                         var updn1First = arrival.where((element) => updnLine1.contains(element.updnLine)).map((e) => '${e.trainLineNm} ${e.arvlMsg2}').first;
@@ -510,7 +512,7 @@ class _HomePageState extends State<HomePage> {
                                                           gravity: ToastGravity.CENTER)
                                                           .then((value) => datas.subwayName = box.read('subwayB'))
                                                           .then((value) => datas.engName = box.read('engB'))
-                                                          .then((value) => stringNumber = box.read('lineB'))
+                                                          .then((value) => stringNumber = box.read('lineB') ?? 'Line2')
                                                           .then((value) =>datas.lat1 = box.read('latB'))
                                                           .then((value) =>datas.lng1 = box.read('lngB'));
                                                     });
@@ -579,7 +581,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black)),
                           onPressed: () {
                             setState(() {
-                              datas.retriveLine(LineList,box.read('row1')); /// row1// Line1.Line2
+                              datas.retriveLine(lineDataList,box.read('row1')); /// row1// Line1.Line2
                               lineToId = datas.number; /// 1001, 1002
                               stringNumber = box.read('row1');
                             });
@@ -618,7 +620,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.black)),
                           onPressed: () {
                             setState(() {
-                              datas.retriveLineT(LineList,box.read('row2'));
+                              datas.retriveLineT(lineDataList,box.read('row2'));
                               lineToIdT = datas.numberT; /// 1001, 1002
                               stringNumberT = box.read('row2');
                               box.write('line_to_NumT',lineToIdT);

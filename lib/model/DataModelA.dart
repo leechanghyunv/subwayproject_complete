@@ -14,7 +14,6 @@ class SubwayModel with _$SubwayModel{
   }) = _SubwayModel;
   factory SubwayModel.fromJson(Map<String, Object?> json) => _$SubwayModelFromJson(json);
 }
-
 extension MutableSubwayModelExtension on SubwayModel {
   SubwayModel setKm(double newKm) {
     return copyWith(km: newKm);

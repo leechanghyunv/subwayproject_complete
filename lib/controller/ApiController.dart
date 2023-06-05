@@ -1,6 +1,4 @@
-
 import 'dart:convert';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -14,13 +12,9 @@ import 'RetrieveData.dart';
 class Controller extends GetxController {
 
   final arrivalservice = ArrivalApiService.create();
-
-
   final codeapiservice = CodeApiService.create();
 
-
   RxList<ArrivalModel> arrival = RxList<ArrivalModel>([]);
-
   RxList<CodeModel> codes = RxList<CodeModel>([]);
 
   final Datas = Get.put(Retrieve());
@@ -41,13 +35,12 @@ class Controller extends GetxController {
   }
 
 
-
   Future<void> callCode(String name, String line) async {
     if(name == '서울'){
       name = '서울역';
     }
     final nameWithoutParentheses = name.replaceAll(RegExp(r'\([^()]*\)'), '');
-    Datas.retriveLine(LineList, line);
+    Datas.retriveLine(lineDataList, line);
     var lineB = Datas.lineStringB;
     final response = await codeapiservice.GetCode(nameWithoutParentheses);
     final Iterable CodeData = jsonDecode(response.body)['SearchInfoBySubwayNameService']['row'];

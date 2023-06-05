@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../controller/LatlngController.dart';
 import '../pageview/DialogPage.dart';
 import '../parts/QrContainer.dart';
 import 'TextFrame.dart';
@@ -22,6 +25,8 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
 
   String linex = '';
 
+  final latlng = Get.put(LatLongController());
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +37,8 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
     setState(() {
       linex = value;
     });
+    latlng.latlong(linex);
+    latlng.update();
   }
 
 
@@ -61,7 +68,7 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
                     child: Icon(Icons.menu),
                     onSelected: (String value) {
                       print(value);
-                      changeline(value);
+                      changeline(value); /// line 재결정
                       setState(() {});
                     },
                   ),
@@ -76,14 +83,20 @@ class _SwitchDialogBState extends State<SwitchDialogB> {
             height: 10,
           ),
           ///(Linex에 따라 재빌드 되도록 하려면?)
+
           Container(
             color: Colors.grey,
             height: appHeight * 0.2907,
-            child: DialogPage(
-              getLine: linex,
-            ),
+            child: GetBuilder<LatLongController>(
+                init: LatLongController(),
+                builder: (latlng){
+                  return DialogPage(
+                    getLine: linex,
+                    subwaylist: latlng.filteredSubwayInfos,
+                  );
+                }),
+
           ),
-          ///
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(

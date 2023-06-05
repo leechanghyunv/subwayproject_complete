@@ -42,10 +42,10 @@ class TransferIcon extends StatelessWidget {
                           TextFrame(
                             comment: '\n환승역 ${box.read('convertT')} ${box.read('subwayT')}\n',
                           ),
-                          TextFrame(comment: updn1First.toString().toString()),
-                          TextFrame(comment: updn1Last.toString().toString()),
-                          TextFrame(comment: updn2First.toString().toString()),
-                          TextFrame(comment: updn2Last.toString().toString()),
+                          TextFrame(comment: updn1First.toString()),
+                          TextFrame(comment: updn1Last.toString()),
+                          TextFrame(comment: updn2First.toString()),
+                          TextFrame(comment: updn2Last.toString()),
                         ],
                       );
                     }catch(e){

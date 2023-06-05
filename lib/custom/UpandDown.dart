@@ -2,18 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UpandDown extends StatelessWidget {
-
   final Color? color1;
   final Color? color2;
   final Function()? onTap1;
   final Function()? onTap2;
 
-  const UpandDown({Key? key, this.color1, this.color2, this.onTap1, this.onTap2, }) : super(key: key);
+  const UpandDown({
+    Key? key,
+    this.color1,
+    this.color2,
+    this.onTap1,
+    this.onTap2,
+  }) : super(key: key);
 
   @override
-
   Widget build(BuildContext context) {
-    double appHeight = MediaQuery.of(context).size.height;  ///  896.0 IPHONE11
+    double appHeight = MediaQuery.of(context).size.height;
+
+    ///  896.0 IPHONE11
 
     return Container(
       width: appHeight * 0.224,

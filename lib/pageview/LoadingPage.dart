@@ -1,9 +1,6 @@
-
-
 import 'package:blinking_text/blinking_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'Layout.dart';
 
 class LoadingPage extends StatefulWidget {
@@ -24,9 +21,6 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     double appHeight = MediaQuery.of(context).size.height;
-    double appWidth = MediaQuery.of(context).size.width;
-    double appRatio = MediaQuery.of(context).size.aspectRatio;
-    double mainBoxHeight = appHeight * 0.58;
 
     return LayoutPage(
       body: Center(
@@ -40,6 +34,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
+                duration: Duration(milliseconds: 500), /// 깜빡이는 간격이라고 한다
             ),
           ],
         ),
